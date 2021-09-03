@@ -1,0 +1,446 @@
+/* изначальный цвет панели навигации */
+.topnav {
+
+    background-color: #1fc5d0;
+    overflow: hidden;
+    position: relative;
+    text-align:center;
+    margin:  auto;
+    justify-content: space-between;
+    padding:20px;
+}
+
+    .topnav a { /*верхняя навигация */
+              
+        position: relative;
+        overflow: hidden;
+        font-size:medium;
+        position: relative;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 5px 10px;
+        text-decoration: none;
+        font-size: 30px;
+    }
+
+
+        .topnav a:hover { /* пры выборе меняет цвет навигации и текста  */
+            background-color: deepskyblue;
+            color: white;
+           
+        }
+
+
+        .topnav a.active { /* */
+            background-color: #4;
+            color: black;
+            position: relative;
+            text-align: center;
+            top: 30px;
+          
+        }
+
+
+
+html {
+
+}
+
+
+.fon {
+    position: relative;
+    text-align: center;
+    top: 1px;
+
+}
+
+.body {
+    margin: auto;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    top: 1px;
+    width: 1400px;
+    height: 100%;
+    box-shadow: 10px 10px 10px 10px #454545;
+    padding: 20px;
+}
+
+
+.uslowtarif {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px 2px black;
+}
+
+
+
+.podkltar {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    margin: auto;
+    font-size: 4em;
+    padding: 20px;
+    text-align: center;
+    color: aqua;
+    text-shadow: 3px 1px 1px #5b5b5b;
+}
+
+
+.tarifimg {
+    box-shadow: 5px 5px 5px 5px #326f58;
+}
+
+.skid {
+    font-size: 50px;
+    color: #f5ff00;
+    text-shadow: 3px 1px 1px #5b5b5b;
+}
+
+
+
+
+A {
+    text-decoration: none; /* Убирает подчеркивание для ссылок */
+}
+
+
+
+
+
+.bulletsBlock {
+    text-align: center;
+    position: relative;
+    display: table;
+    clear: both;
+    float: none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    margin: auto;
+    justify-content: space-between;
+    padding: 20px;
+
+
+}
+
+    .bulletsBlock > div {
+        box-shadow: 10px 10px 10px 5px #4e4b4b;
+        width: 30%;
+        float: left;
+        background: #3ef3ff;
+        margin-left: 5%;
+        text-align: center;
+        position: relative;
+        padding-bottom: 20%;
+        cursor: pointer;
+        -webkit-transition: all 0.35s linear;
+        transition: all 0.35s linear;
+        height: 300px;
+     
+    }
+
+    .bulletsBlock > div:first-child {
+        margin-left: 0;
+    }
+
+    /*Тень снизу у блока при наведении*/
+    .bulletsBlock > div:hover {
+        -webkit-box-shadow: 0 35px 35px -35px #000000;
+        -moz-box-shadow: 0 35px 35px -35px #000000;
+        box-shadow: 0 35px 35px -35px #000000;
+    }
+.bullet-item span {
+    line-height: 1.5em;
+    font-size: 12.5em;
+    color: #3ef3ff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+}
+
+/*Анимация иконки при наведении - уменьшение и сдвиг вверх*/
+.bulletsBlock > div:hover span.iconBullet {
+    line-height: 1.35em;
+    font-size: 10.625em;
+    top: -2.7%;
+}
+.titleBullet, .hideText { /*Анимация иконки при наведении - уменьшение и сдвиг вверх*/
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    color: #fff;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+}
+
+.titleBullet { /*Названия тарифа */
+    line-height: 2.5em;
+    font-size: 2.1875em;
+    background: #1fc5d0;
+    z-index: 10;
+}
+
+.hideText {
+    line-height: 1.3em; /*выбрать */
+    font-size: 1.25em;
+    padding: 1em 0;
+    background: #37d4ff;
+    font-weight: 300;
+    z-index: 8;
+    height: 50px;
+    -webkit-transition: all 0.35s linear 0.2s;
+    transition: all 0.35s linear 0.2s;
+}
+
+/*Анимация при наведении видимого текстового блока*/
+.bulletsBlock > div:hover p.titleBullet {
+    bottom: 80px;
+}
+
+/*Анимация при наведении скрытого текстового блока*/
+.bulletsBlock > div:hover p.hideText {
+    background: #454545;
+}
+
+
+
+
+
+.parent > div {
+    flex: auto;
+    background: #eee;
+    float: left;
+    width: 30%;
+    margin-right: 2%;
+}
+
+
+.bulletsBlock {
+}
+
+.product-item > img {
+    box-shadow: 1px 10px 10px 4px #5b5b5b;
+}
+
+}
+
+
+
+
+
+
+
+#slider { /*положение слайдера*/
+    position: relative;
+    text-align: center;
+    top: 10px;
+}
+
+#slider { /*центровка слайдера*/
+    margin: 0 auto;
+}
+
+#slides article { /*все изображения справа друг от доруга*/
+    width: 20%;
+    float: left;
+}
+
+#slides .image { /*устанавливает общий размер блока с изображениями*/
+    width: 500%;
+    line-height: 0;
+}
+
+#overflow { /*сркывает все, что находится за пределами этого блока*/
+    width: 100%;
+    overflow: hidden;
+}
+
+article img { /*размер изображений слайдера*/
+    width: 100%;
+}
+
+#desktop:checked ~ #slider { /*размер всего слайдера*/
+    max-width: 1200px; /*максимальнная длинна*/
+}
+
+/*настройка переключения и положения для левой стрелки*/
+/*если свич1-5 активны, то идет обращение к лейблу из блока с id контролс*/
+#switch1:checked ~ #controls label:nth-child(5),
+#switch2:checked ~ #controls label:nth-child(1),
+#switch3:checked ~ #controls label:nth-child(2),
+#switch4:checked ~ #controls label:nth-child(3),
+#switch5:checked ~ #controls label:nth-child(4) {
+    background: url('prev.png') no-repeat; /*заливка фона картинкой без повторений*/
+    float: left;
+    margin: 0 0 0 -84px; /*сдвиг влево*/
+    display: block;
+    height: 68px;
+    width: 68px;
+}
+
+/*настройка переключения и положения для правой стрелки*/
+#switch1:checked ~ #controls label:nth-child(2),
+#switch2:checked ~ #controls label:nth-child(3),
+#switch3:checked ~ #controls label:nth-child(4),
+#switch4:checked ~ #controls label:nth-child(5),
+#switch5:checked ~ #controls label:nth-child(1) {
+    background: url('next.png') no-repeat; /*заливка фона картинкой без повторений*/
+    float: right;
+    margin: 0 -84px 0 0; /*сдвиг вправо*/
+    display: block;
+    height: 68px;
+    width: 68px;
+}
+
+label, a { /*при наведении на стрелки или переключатели - курсор изменится*/
+    cursor: pointer;
+}
+
+.all input { /*скрывает стандартные инпуты (чекбоксы) на странице*/
+    display: none;
+}
+
+/*позиция изображения при активации переключателя*/
+#switch1:checked ~ #slides .image {
+    margin-left: 0;
+}
+
+#switch2:checked ~ #slides .image {
+    margin-left: -100%;
+}
+
+#switch3:checked ~ #slides .image {
+    margin-left: -200%;
+}
+
+#switch4:checked ~ #slides .image {
+    margin-left: -300%;
+}
+
+#switch5:checked ~ #slides .image {
+    margin-left: -400%;
+}
+
+#controls { /*положение блока всех управляющих элементов*/
+    margin: -25% 0 0 0;
+    width: 100%;
+    height: 50px;
+}
+
+#active label { /*стиль отдельного переключателя*/
+    border-radius: 10px; /*скругление углов*/
+    display: inline-block; /*расположение в строку*/
+    width: 15px;
+    height: 15px;
+    background: #bbb;
+}
+
+#active { /*расположение блока с переключателями*/
+    margin: 23% 0 0;
+    text-align: center;
+}
+
+    #active label:hover { /*поведение чекбокса при наведении*/
+        background: #76c8ff;
+        border-color: #777 !important; /*выполнение в любом случае*/
+    }
+
+/*цвет активного лейбла при активации чекбокса*/
+#switch1:checked ~ #active label:nth-child(1),
+#switch2:checked ~ #active label:nth-child(2),
+#switch3:checked ~ #active label:nth-child(3),
+#switch4:checked ~ #active label:nth-child(4),
+#switch5:checked ~ #active label:nth-child(5) {
+    background: #18a3dd;
+    border-color: #18a3dd !important;
+}
+
+#slides .image { /*анимация пролистывания изображений*/
+    transition: all 800ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+}
+
+#controls label:hover { /*прозрачность стрелок при наведении*/
+    opacity: 0.6;
+}
+
+#controls label { /*прозрачность стрелок при отводе курсора*/
+    transition: opacity 0.2s ease-out;
+}
+
+
+
+.spoiler {
+    box-shadow: 3px 3px 3px rgba(2, 4, 4, 4);
+    font-size: 50px;
+    background: #18a3dd;
+    color: #ffffff;
+
+}
+
+
+
+.aaa {
+    text-align: center;
+    font-size: 30px;
+}
+
+.canal {
+    text-align: left;
+ 
+    font-size: 30px;
+}
+
+
+
+.canal2 {
+    text-align: left;
+    float:left;
+    font-size: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer {
+    height: 100%;
+    width: 1400px;
+    
+    background: #3ef3ff;
+    box-shadow: 3px 3px 3px rgba(2, 4, 4, 4);
+}
+.container {
+    font-size: 30px;
+    background-color: #3ef3ff;
+    overflow: hidden;
+    text-align: center;
+
+}
+.footer-copyright{
+    font-size:25px;
+}
+

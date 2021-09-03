@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <link href="style.css" rel="stylesheet">
+
+  <title>NETтелеком</title>
+</head>
+
+<body class="body">
+  <div class="wrapper">
+    <div class="topnav">
+      <a href="signup.php"><b>Главная</b></a>
+      <a href="inter.html"><b>Интернет</b></a>
+      <a href="telik.html"><b>Телевидение</b></a>
+      <a href="oborud.html"><b>Оборудование</b></a>
+      <a href="index2.html"><b>Личный кабинет</b></a>
+
+    </div>
+    </br>
+    <div class="fon">
+      <img class="fon" src="log.png" alt="альтернативный текст" width="1340" height="150" />
+    </div>
+  
+    <div class="content">
+      <div id="root1"></div>
+
+    </div>
+
+    <script type="text/babel">
+      function User(user) {
+        const [userName, setUserName] = React.useState(user.username);
+        const [userEmail, setUserEmail] = React.useState(user.email);
+        const [userCity, setUserCity] = React.useState(user.city);
+        const [userStreed, setUserStreed] = React.useState(user.streed);
+        const [userHome, setUserHome] = React.useState(user.home);
+        const [userKv, setUserKv] = React.useState(user.kv);
+        const [userBalans, setUserBalans] = React.useState(user.balans);
+        const [userTarif, setUserTarif] = React.useState(user.tarif);
+        const [userTel, setUserTel] = React.useState(user.tel);
+        
+        const onChange = setState => ({ target: { value } }) => setState(value);
+
+        const countPlata = () => {
+          if(userTarif.search('100') !== -1 ){
+            return '100 грн';
+          }
+          if(userTarif.search('50') !== -1){
+            return '50 грн';
+      }
+          if(userTarif.search('25') !== -1){
+            return '25 грн';
+          }
+        }
+
+        return (
+          <div className="car">
+              
+    
+     <div class="layer1">
+     <p > Пользователь:</p>
+     <p class="layer3">ЛС: </p>
+     <input class="layer4" id="ls" value={user._id} readOnly /> <br/>  <br/> 
+    
+     <p class="layer3">ФИО:</p>
+     <input class="layer4" id="userName" value={userName} onChange={onChange(setUserName)} />  <br/>  <br/>
+    
+     <p class="layer3">Email:</p>
+     <input class="layer4" id="email" value={userEmail} onChange={onChange(setUserEmail)} />  <br/>  <br/>
+    
+     <p class="layer3">Дата подключения :	</p>
+     <input class="layer4" id="date" value={user.date} readOnly />  <br/>  <br/>
+    
+     <p class="layer3">Населенный пункт :	</p>
+     <input class="layer4" id="city" value={userCity} onChange={onChange(setUserCity)} />  <br/>  <br/>
+    
+     <p class="layer3">Улица:</p>
+     <input class="layer4" id="streed" value={userStreed} onChange={onChange(setUserStreed)} /> <br/>  <br/>
+    
+     <p class="layer3">Дом:</p>
+     <input class="layer4" id="home" value={userHome} onChange={onChange(setUserHome)} />  <br/>  <br/>
+    
+     <p class="layer3">Квартира:</p>
+     <input class="layer4" id="kv" value={userKv} onChange={onChange(setUserKv)} /> <br/>  <br/>
+     <p class="layer3">Телефон:</p>
+     <input class="layer4" id="tel" value={userTel} onChange={onChange(setUserTel)} /> <br/>  <br/>
+     <p class="layer3">Баланс:</p>
+     <input id="balans" class="layer4" value={userBalans} onChange={onChange(setUserBalans)} />  <br/>  <br/>
+  
+     <p class="layer3">Тариф:</p>
+     <input id="tarif" class="layer4" value={userTarif} onChange={onChange(setUserTarif)} />  <br/>  <br/>
+ 
+     <p class="layer3">Плата:</p>
+     <input id="plata" class="layer4" value={countPlata()} readOnly />   <br/>  <br/>
+  
+     </div>
+          </div>
+        )
+      }
+      
+      function App() {
+        const [serchUserId, setSearchUserId] = React.useState('');
+        const [userData, setUserData] = React.useState(null);
+
+        const postData = async (url, data, method = 'POST') => {
+            const loader = document.createElement('div');
+
+            loader.innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
+            loader.classList.add('loader-wrap');
+
+            const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+
+            document.body.append(loader);
+
+            await delay();
+
+            return fetch(`http://localhost:8080/${url}`, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .finally(() => loader.remove())
+                .then(data => data.json())
+        };
+
+        const fetchUser = async userId => {
+           const user = await postData('api/users/me/getUser', { ls: userId });
+
+           setUserData(user);
+        };
+
+        const showMessage = (text, color = 'green') => {
+          const errorDiv = document.createElement('div');
+          const anchor = document.body;
+          const defaultBackground = anchor.style.background;
+
+          errorDiv.style.position = 'fixed';
+          anchor.style.background = 'rgba(0, 0, 0, 0.2)';
+          errorDiv.style.paddingTop = '300px';
+          errorDiv.style.top = '0';
+          errorDiv.style.left = '0';
+          errorDiv.style.width = '100%';
+          errorDiv.style.height = '100%';
+          errorDiv.style.display = 'flex';
+          errorDiv.style.justifyContent = 'center';
+          errorDiv.style.color = color;
+          errorDiv.style.fontWeight = 'bold';
+          errorDiv.style.fontSize = '24px';
+          errorDiv.style.transition = 'all .3s';
+          errorDiv.style.opacity = '0';
+          errorDiv.innerHTML = `<div>${text}</div>`;
+          anchor.append(errorDiv);
+          setTimeout(() => {
+              errorDiv.style.opacity = '1';
+
+              setTimeout(() => {
+                  errorDiv.style.opacity = '0';
+
+                  setTimeout(() => {
+                      errorDiv.style.opacity = '1';
+
+                      setTimeout(() => {
+                          errorDiv.style.opacity = '0';
+
+                          setTimeout(() => {
+                            errorDiv.remove();
+                            anchor.style.background = defaultBackground;
+                          }, 300);
+                      }, 600);
+                  }, 300);
+              }, 300);
+          }, 0);
+        };
+
+        React.useEffect(() => {
+              document.getElementById('save-user-data').addEventListener('click', async () => {
+                const data = {
+                  ls: document.getElementById('ls').value.trim(),
+                  username: document.getElementById('userName').value.trim(),
+                  email: document.getElementById('email').value.trim(),
+                  tel: document.getElementById('tel').value.trim(),
+                  city: document.getElementById('city').value.trim(),
+                  streed: document.getElementById('streed').value.trim(),
+                  home: document.getElementById('home').value.trim(),
+                  kv:document.getElementById('kv').value.trim(),
+                  tarif: document.getElementById('tarif').value.trim(),
+                  balans: document.getElementById('balans').value.trim(),
+                };
+                const { message } = await postData('api/users/me', data, 'PUT');
+
+                showMessage(message);
+
+                setTimeout(() => location.reload(), 2000);
+            });
+        }, []);
+
+        return (
+           <div>
+                  <div class="cover">
+            <div id="find">
+                <p class="contact"><label for="login">Введите номер лицевого счета</label></p>
+                <input  name="ls" id="name"  placeholder="12345678" required="" tabindex="1" type="text" value={serchUserId} onChange={({ target: { value } }) => setSearchUserId(value)} />
+                &nbsp;<button class="button" name="do_signup" type="submit" id="button" onClick={() => fetchUser(serchUserId)}>Поиск</button><br /><br />
+            </div>
+          </div>
+            {!userData ? <span style={{ color: '#1fc5d0' }}>Нужно произвести поиск, чтобы запросить данные!</span> : <User {...userData} />}
+          </div>
+        )
+      }
+      
+      ReactDOM.render(
+        <App />,
+        document.querySelector('#root1')
+      )
+    
+      function Billing(billing) {
+        return (
+      <div className="car1">
+     <div class="layer1">
+     <p > Состояние счета:</p>
+     <p class="layer3">Баланс:</p>
+     <p class="layer4">{billing.balans+" грн"}</p>  <br/>  <br/>
+    
+     <p class="layer3">Тариф:</p>
+     <textarea class="layer5">{billing.tarif}</textarea>   <br/>  <br/>
+    
+     <p class="layer3">Плата:</p>
+     <p class="layer4">{billing.plata+" грн"}</p>   <br/>  <br/>
+    
+     <p class="layer3">Следующий платеж:</p>
+     <p class="layer4">{billing.sledplata}</p>  <br/>  <br/>
+     
+     <p class="layer3">Скорость интернета:</p>
+     <p class="layer4">{billing.speed}</p>  <br/>  <br/>
+     </div> 
+     </div>
+    
+        )
+      }
+      const App1 = (
+        <div>
+          <Billing balans="11111" tarif="Социальный" plata="12313" sledplata="22.12.2002" speed="100"
+           />
+        </div>
+      )
+      ReactDOM.render(
+        App1,
+        document.querySelector('#root2')
+      )
+    
+    </script>    
+    <div class="grabutton">
+   <a class="gradient-button" id="save-user-data">Сохранить </a>
+  
+    </div>
+        <div class="footer">
+        <br>
+            <footer class="myFooter" id="myFooter">
+               
+                <div class="footer1">
+
+                    <div class="footer2">
+                        <a>Мы в соц-сетях:</a><br>
+                        <a href="https://www.facebook.com/profile.php?id=100023029292803"><img src="f.png" width="50px" height="50px"></a>
+                        <a href="https://twitter.com/explore"><img src="t.png" width="50px" height="50px"></a>
+                        <a href="https://www.instagram.com/niks.gawrilenko/?hl=uk"><img src="i.png" width="50px" height="50px"></a>
+                        <a href="https://vk.com/id224301660"><img src="v.webp" width="50px" height="50px"></a>
+                    </div>
+                    
+                    <div class="footer3">
+                        <a>Контакт-центр:</a><br>
+                        <p>+380687483729</p>
+                    </div>
+                    
+
+
+                </div>
+
+            </footer>
+            <p>Использование материалов этого сайта возможно только с предварительного письменного согласия «NetСom»</p>
+                <p >© 2020 NetСom company все права защищены</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<!-- <p class="layer3">ЛС: </p>
+<p class="layer4" >{user.ls}</p >  <br/>  <br/> 
+
+<p class="layer3">ФИО:</p>
+<textarea class="layer5">{user.fio}</textarea >  <br/>  <br/>
+
+<p class="layer3">Email:</p>
+<textarea class="layer5">{user.email}</textarea>  <br/>  <br/>
+
+<p class="layer3">Дата подключения :	</p>
+<p class="layer4">{user.data}</p>  <br/>  <br/>
+
+<p class="layer3">Населенный пункт :	</p>
+<textarea class="layer5">{user.city}</textarea>  <br/>  <br/>
+
+<p class="layer3">Улица:</p>
+<textarea class="layer5">{user.streed}</textarea>  <br/>  <br/>
+
+<p class="layer3">Дом:</p>
+<textarea class="layer5">{user.home}</textarea>  <br/>  <br/>
+
+<p class="layer3">Квартира:</p>
+<textarea class="layer5">{user.kv}</textarea>  <br/>  <br/> -->

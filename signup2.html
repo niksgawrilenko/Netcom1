@@ -1,0 +1,208 @@
+﻿
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+
+    <title>NETтелеком</title>
+</head>
+    
+<body class="body">
+    <div class="wrapper">
+    <div class="topnav">
+        <a href="signup.php"><b>Главная</b></a>
+        <a href="inter.html"><b>Интернет</b></a>
+        <a href="telik.html"><b>Телевидение</b></a>
+        <a href="oborud.html"><b>Оборудование</b></a>
+        <a href="index2.html"><b>Личный кабинет</b></a>
+
+    </div>
+    <div class="fon">
+        <img class="fon" src="log.png" alt="альтернативный текст" width="1340" height="150" />
+    </div>
+
+
+
+    <br><br><br><br>
+    <div class="cover">
+        <h2 class="contact">Регистрация</h2>
+        <div id="contactform">
+            <!-- <input name="balans" id="balans"  required="" tabindex="2" type="text" style="visibility: hidden" > -->
+            <p class="contact"><label for="name">Введите ваше ФИО</label></p>
+            <input  name="username" id="name"  placeholder="Иванов иванович" required="" tabindex="1" type="text" value="">
+
+            <p class="contact"><label for="email">Email</label></p>
+            <input name="email" id="email" placeholder="vashapothcta@gmail.com" required="" tabindex="2" type="email">
+
+            
+            <p class="contact"><label for="tel">Номер телефона</label></p>
+            <input name="tel" id="tel" placeholder="12324141" required tabindex="2" type="tel">
+
+            <p class="contact"><label for="date">Дата подключения</label></p>
+            <input type="date" id="date" name="date">
+
+            <p class="contact"><label for="city">Населенный пункт :</label></p>
+            <input name="city" id="city" placeholder="Чернигов" required="" tabindex="2" type="text">
+
+            <p class="contact"><label for="streed">Улица :</label></p>
+            <input name="streed" id="streed" placeholder="Циолковского" required="" tabindex="2" type="text">
+            
+            <p class="contact"><label for="home">Дом :</label></p>
+            <input name="home" id="home" placeholder="14" required="" tabindex="2" type="text">
+
+            <p class="contact"><label for="kv">Квартира :</label></p>
+            <input name="kv" id="kv" placeholder="210" required="" tabindex="2" type="text">
+
+            <p class="contact"><label class="contact" for="tarif">Тариф :</label></p>
+            <!-- <input name="tarif" id="tarif"  required="" tabindex="2" type="text"> -->
+            <select class="contact1" name="tarif" id="tarif"  required="" tabindex="2">
+                <option class="contact1">NET 25</option>
+                <option class="contact1">NET 50</option>
+                <option class="contact1">NET 100</option>
+            </select>
+
+
+            <p class="contact"><label for="password"  >Ваш пароль</label></p>
+            <input name="password" id="password" type="password" minlength="8" placeholder="" >
+            <p class="contact"><label for="phone">Повторите ваш пароль</label></p>
+            <input name="password2" id="password" type="password" ><br> 
+
+            
+
+            <button class="button" name="do_signup" type="submit" id="button">Зарегестрироваться</button><br><br>
+        </div>
+    </div>
+    
+    <br><br>  <br><br>
+    <div class="footer">
+        <br>
+            <footer class="myFooter" id="myFooter">
+               
+                <div class="footer1">
+
+                    <div class="footer2">
+                        <a>Мы в соц-сетях:</a><br>
+                        <a href="https://www.facebook.com/profile.php?id=100023029292803"><img src="f.png" width="50px" height="50px"></a>
+                        <a href="https://twitter.com/explore"><img src="t.png" width="50px" height="50px"></a>
+                        <a href="https://www.instagram.com/niks.gawrilenko/?hl=uk"><img src="i.png" width="50px" height="50px"></a>
+                        <a href="https://vk.com/id224301660"><img src="v.webp" width="50px" height="50px"></a>
+                    </div>
+                    
+                    <div class="footer3">
+                        <a>Контакт-центр:</a><br>
+                        <p>+380687483729</p>
+                    </div>
+                    
+
+
+                </div>
+
+            </footer>
+            <p>Использование материалов этого сайта возможно только с предварительного письменного согласия «NetСom»</p>
+                <p >© 2020 NetСom company все права защищены</p>
+        </div>
+    </div>
+
+
+
+    <script>
+        const redirectTo = url => {
+            const baseURL = location.href.replace(/netcom.*/, 'netcom/');
+
+            location.href = `${baseURL}${url}`;
+        };
+        const showMessage = (text, color = 'red') => {
+            const errorDiv = document.createElement('div');
+            const anchor = document.querySelector('#contactform');
+
+            errorDiv.style.color = color;
+            errorDiv.style.fontWeight = 'bold';
+            errorDiv.style.fontSize = '24px';
+            errorDiv.style.transition = 'all .3s';
+            errorDiv.style.opacity = '0';
+            errorDiv.innerText = text;
+            anchor.append(errorDiv);
+            setTimeout(() => {
+                errorDiv.style.opacity = '1';
+
+                setTimeout(() => {
+                    errorDiv.style.opacity = '0';
+
+                    setTimeout(() => {
+                        errorDiv.style.opacity = '1';
+
+                        setTimeout(() => {
+                            errorDiv.style.opacity = '0';
+
+                            setTimeout(() => errorDiv.remove(), 300);
+                        }, 600);
+                    }, 300);
+                }, 300);
+            }, 0);
+        };
+        const postData = async (url, data) => {
+            const loader = document.createElement('div');
+
+            loader.innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
+            loader.classList.add('loader-wrap');
+
+            const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+
+            document.body.append(loader);
+
+            await delay();
+
+            return fetch(`http://localhost:8080/api/auth/${url}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .finally(() => loader.remove());
+        };
+
+        document.querySelector('button[name="do_signup"]').addEventListener('click', () => {
+            const data = [...document.querySelectorAll('#contactform > input:not(input[name="password2"])'), ...document.querySelectorAll('#contactform > select')]
+                        .reduce((acc, input) => ({
+                            ...acc,
+                            [input.name]: input.value,
+                        }), {});
+
+            const password = document.querySelector('#contactform > input[name="password"]').value.trim();
+            const password2 = document.querySelector('#contactform > input[name="password2"]').value.trim();
+
+            if (password !== password2) {
+                showMessage('Пароли не совпадают!');
+
+                return;
+            }
+
+            (async () => {
+                const answer = await postData('register', data);
+
+                if (!answer.ok) {
+                    const { message } = await answer.json();
+
+                    showMessage(message);
+                } else {
+                    const { message, jwt_token } = await answer.json();
+
+                    showMessage(message, 'green');
+
+                    localStorage.setItem('jwt_token', jwt_token);
+
+                    setTimeout(() => {
+                        redirectTo('lk.html');
+                    }, 1000);
+                }
+            })();
+        });
+    </script>
+</div>
+</body>
+</html>
+</form>
+</html>

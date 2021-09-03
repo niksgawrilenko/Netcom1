@@ -1,0 +1,150 @@
+
+.topnav {
+
+    background-color: #1fc5d0;
+    overflow: hidden;
+    position: relative;
+    text-align:center;
+    margin:  auto;
+    justify-content: space-between;
+    padding:20px;
+}
+
+.layer1 {
+    line-height: 0.5;
+    color: #1fc5d0;
+    padding: 5px; /* ���� ������ ������ */
+
+    width: 40%; /* ������ ���� */
+    font-size: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* ��������� ���� */
+    display: inline-block;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+}
+
+.layer2 {
+    line-height: 0.5;
+    color: #1fc5d0;
+    padding: 5px; /* ���� ������ ������ */
+    width: 40%; /* ������ ���� */
+    font-size: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* ��������� ���� */
+
+}
+
+.layer3 {
+    line-height: 0.5;
+    text-align: left;
+    color: #1fc5d0;
+
+
+    font-size: 30px;
+
+    position: absolute;
+    left: 1%;
+}
+
+.layer4 {
+    line-height: 0.5;
+    text-align: right;
+    color: #1fc5d0;
+    font-size: 30px;
+    position: absolute;
+    right: 1%;
+}
+
+
+html {
+}
+
+    .topnav a { /*������� ��������� */
+              
+        position: relative;
+        overflow: hidden;
+        font-size:medium;
+        position: relative;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 5px 10px;
+        text-decoration: none;
+        font-size: 30px;
+    }
+
+
+        .topnav a:hover { /* ��� ������ ������ ���� ��������� � ������  */
+            background-color: deepskyblue;
+            color: white;
+           
+        }
+
+
+        .topnav a.active { /* */
+            background-color: #4;
+            color: black;
+            position: relative;
+            text-align: center;
+            top: 30px;
+          
+        }
+
+A {
+    text-decoration: none; /* ������� ������������� ��� ������ */
+}
+
+
+
+
+.fon {
+    position: relative;
+    text-align: center;
+    top: 1px;
+
+}
+
+.body {
+    margin: auto;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    top: 1px;
+    width: 1400px;  
+    height: 1050px;
+    box-shadow: 10px 10px 10px 10px #454545;
+    padding: 20px;
+}
+
+
+
+
+
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 25%;
+    width: 100%;
+    float: left;
+    background: #3ef3ff;
+    box-shadow: 3px 3px 3px rgba(2, 4, 4, 4);
+}
+.container {
+    font-size: 30px;
+    background-color: #3ef3ff;
+    overflow: hidden;
+    text-align: center;
+    margin: auto;
+}
+.footer-copyright{
+    font-size:25px;
+}
+
+
+.aaa{
+    text-align:center;
+    font-size:30px;
+}
+
+

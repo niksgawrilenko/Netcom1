@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <link href="style.css" rel="stylesheet">
+
+  <title>NETтелеком</title>
+
+  <style>
+    /* для элемента input c type="radio" */
+    .custom-radio {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+    }
+    /* для элемента label связанного с .custom-radio */
+    .custom-radio+label {
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+    }
+    /* создание в label псевдоэлемента  before со следующими стилями */
+    .custom-radio+label::before {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+      flex-grow: 0;
+      border: 1px solid #adb5bd;
+      border-radius: 50%;
+      margin-right: 0.5em;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 50% 50%;
+    }
+    /* стили при наведении курсора на радио */
+    .custom-radio:not(:disabled):not(:checked)+label:hover::before {
+      border-color: #b3d7ff;
+    }
+    /* стили для активной радиокнопки (при нажатии на неё) */
+    .custom-radio:not(:disabled):active+label::before {
+      background-color: #b3d7ff;
+      border-color: #b3d7ff;
+    }
+    /* стили для радиокнопки, находящейся в фокусе */
+    .custom-radio:focus+label::before {
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    /* стили для радиокнопки, находящейся в фокусе и не находящейся в состоянии checked */
+    .custom-radio:focus:not(:checked)+label::before {
+      border-color: #80bdff;
+    }
+    /* стили для радиокнопки, находящейся в состоянии checked */
+    .custom-radio:checked+label::before {
+      border-color: #0b76ef;
+      background-color: #0b76ef;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+    }
+    /* стили для радиокнопки, находящейся в состоянии disabled */
+    .custom-radio:disabled+label::before {
+      background-color: #e9ecef;
+    }
+  </style>
+</head>
+
+<body class="body">
+  <div class="wrapper">
+    <div class="topnav">
+      <a href="signup.php"><b>Главная</b></a>
+      <a href="inter.html"><b>Интернет</b></a>
+      <a href="telik.html"><b>Телевидение</b></a>
+      <a href="oborud.html"><b>Оборудование</b></a>
+      <a href="index2.php"><b> </hr>  </b></a>
+
+    </div>
+    </br>
+    <div class="fon">
+      <img class="fon" src="log.png" alt="альтернативный текст" width="1340" height="150" />
+    </div>
+
+  
+
+
+    <div class="content">
+      <div id="root1"></div>
+  
+    </div>
+
+    <script type="text/babel">
+
+
+      function Loader() {
+        return (
+          <div className="loader-wrap">
+            <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>  
+          </div>
+        )
+      }
+
+
+      function User(user) {
+        const [userData, setUserData] = React.useState(null);
+   
+        const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+
+        const countPlata = () => {
+          if(userData.tarif.search('100') !== -1 ){
+            return '100';
+          }
+          if(userData.tarif.search('50') !== -1){
+            return '50';
+           }
+          if(userData.tarif.search('25') !== -1){
+            return '25';
+          }
+        }
+    
+        // setInterval(function() {
+        // let  m = document.getElementById('balans').value;
+        // let z=document.all.balans.innerHTML=--m;
+  
+        //  },2000);
+
+   
+        const countNextPlata = () => {
+          const inDays = 30;
+          const date = new Date(+new Date + 24 * 60 * 60 * 1000 * 30);
+
+          return `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(-2)}-${date.getDate()}`;
+        };
+
+        const postData = async (url, data) => {
+            const loader = document.createElement('div');
+
+            loader.innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
+            loader.classList.add('loader-wrap');
+
+            // setInterval(() => {
+            //         let  m = document.getElementById('balans').value;
+            //   let z=document.all.balans.innerHTML=--m;
+            // }, 1000);
+
+            const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+
+            document.body.append(loader);
+
+            await delay();
+
+            return fetch(`http://localhost:8080/${url}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': [`JWT ${localStorage.getItem('jwt_token')}`],
+                },
+                body: JSON.stringify(data),
+            })
+                .finally(() => loader.remove())
+                .then(data => data.json())
+        };
+
+        const showMessage = (text, color = 'green') => {
+          const errorDiv = document.createElement('div');
+          const anchor = document.body;
+          const defaultBackground = anchor.style.background;
+
+          errorDiv.style.position = 'fixed';
+          anchor.style.background = 'rgba(0, 0, 0, 0.2)';
+          errorDiv.style.paddingTop = '300px';
+          errorDiv.style.top = '0';
+          errorDiv.style.left = '0';
+          errorDiv.style.width = '100%';
+          errorDiv.style.height = '100%';
+          errorDiv.style.display = 'flex';
+          errorDiv.style.justifyContent = 'center';
+          errorDiv.style.color = color;
+          errorDiv.style.fontWeight = 'bold';
+          errorDiv.style.fontSize = '24px';
+          errorDiv.style.transition = 'all .3s';
+          errorDiv.style.opacity = '0';
+          errorDiv.innerHTML = `<div>${text}</div>`;
+          anchor.append(errorDiv);
+          setTimeout(() => {
+              errorDiv.style.opacity = '1';
+
+              setTimeout(() => {
+                  errorDiv.style.opacity = '0';
+
+                  setTimeout(() => {
+                      errorDiv.style.opacity = '1';
+
+                      setTimeout(() => {
+                          errorDiv.style.opacity = '0';
+
+                          setTimeout(() => {
+                            errorDiv.remove();
+                            anchor.style.background = defaultBackground;
+                          }, 300);
+                      }, 600);
+                  }, 300);
+              }, 300);
+          }, 0);
+        };
+
+
+
+
+
+
+        const updateUser = async newBalans => {
+          const previousBalance = document.getElementById('balans').textContent.trim().replace(/\D+/, '');
+          const { message } = await postData('api/users/me/balans', { newBalans: Number(previousBalance) + Number(newBalans) });
+
+          // showMessage(message);
+
+          // setTimeout(() => location.reload(), 2000);
+        };
+
+        React.useEffect(() => {
+          document.getElementById('refill1').addEventListener('click', async () => {
+            const newBalans = document.getElementById('refill').value.trim();
+            const flag = document.getElementById('color-green').checked;
+
+            if (flag) {// списания
+              setInterval(async () => {
+              await updateUser(newBalans);
+              await fetchUser();
+            }, 10000);
+            } else {
+              await updateUser(newBalans);
+              await fetchUser();
+            }
+          });
+        }, []);
+
+        const fetchUser = async () => {
+          await delay();
+
+          fetch('http://localhost:8080/api/users/me',
+            {
+              method: 'GET',
+              headers: {
+                'authorization': [`JWT ${localStorage.getItem('jwt_token')}`]
+              }
+            })
+            .then(userData => userData.json())
+            .then(({ user }) => {
+              setUserData(user);
+              let userData2 = user; 
+              // ДОбАВИЛ ЛЕТ
+              console.log(userData2);
+            })
+        };
+
+        React.useEffect(() => {
+          fetchUser()
+        }, []);
+
+        return !userData ? <Loader /> : (
+          <div >
+    
+     <div className="layer1">
+      <h2 class="contact">Личный Кабинет</h2>
+     <img class="fon" src="user.png" alt="альтернативный текст" width="200" height="200" />
+     <p > Пользователь:</p>
+      <p class="layer3">ЛС: </p>
+     <p class="layer4">{userData._id}</p>  <br/>  
+     <hr/>
+     <p class="layer3">ФИО:</p>
+     <p class="layer4">{userData.username}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Email:</p>
+     <p class="layer4">{userData.email}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Дата подключения :	</p>
+     <p class="layer4">{userData.date}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Населенный пункт :	</p>
+     <p class="layer4">{userData.city}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Улица:</p>
+     <p class="layer4">{userData.streed}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Дом:</p>
+     <p class="layer4">{userData.home}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Квартира:</p>
+     <p class="layer4">{userData.kv}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Телефон:</p>
+     <p class="layer4">{userData.tel}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Баланс:</p>
+     <p id="balans" name="balans" class="layer4">{userData.balans} грн</p>  <br/>  
+     <hr/>
+     <p class="layer3">Тариф:</p>
+     <p id="tarif" class="layer4">{userData.tarif}</p>   <br/>  
+     <hr/>
+     <p class="layer3">Плата:</p>
+     <p id="plata" class="layer4">{countPlata()} грн</p>   <br/>  
+
+     <hr/>
+
+     <p class="layer3">Следующий платеж:</p>
+     <p class="layer4">{countNextPlata()}</p>  <br/>  
+     <hr/>
+     <p class="layer3">Скорость интернета:</p>
+     <p class="layer4">{countPlata()} Мб/с</p>  <br/>
+     <hr/>  <br/>
+     </div>
+          </div>
+        )
+      }
+      const App = (
+        <div class="layer1">
+          <User />
+        </div>
+      )
+      ReactDOM.render(
+        App,
+        document.querySelector('#root1')
+      )
+    
+      function Billing(billing) {
+        return (
+      <div className="car1">
+     <div >
+     <p > Состояние счета:</p>
+     <p class="layer3">Баланс:</p>
+     <p id="balans1" class="layer4">{billing.balans1} грн</p>  <br/>  <br/>
+    
+     <p class="layer3">Тариф:</p>
+     <p id="tarif1" class="layer4">{billing.tarif1}</p>   <br/>  <br/>
+    
+     <p class="layer3">Плата:</p>
+     <p class="layer4">{billing.plata}</p>   <br/>  <br/>
+    
+
+     
+     <p class="layer3">Следующий платеж:</p>
+     <p class="layer4">{billing.sledplata}</p>  <br/>  <br/>
+     
+     <p class="layer3">Скорость интернета:</p>
+     <p class="layer4">{billing.speed} Мб/с</p>  <br/>  <br/>
+     </div> 
+     </div>
+    
+        )
+      }
+      const App1 = (
+        <div>
+          <Billing tarif1="NET-100" plata="12313" sledplata="22.12.2002" speed="100"
+           />
+        </div>
+      )
+      ReactDOM.render(
+        App1,
+        document.querySelector('#root2')
+      )
+
+
+
+  
+
+    </script>    
+    <div class="cover">
+      <div id="find">
+          <p class="contact"><label for="login">Введите сумму пополнения</label></p>
+          <input  name="refill" id="refill"  placeholder="123" required="" tabindex="1" type="text" value="">
+          <button class="button" name="refill1" type="submit" id="refill1">Пополнить</button> <br><br>
+          <input class="custom-radio" name="color" type="radio" id="color-green" value="green">
+          <label for="color-green">Включить таймер списывания</label><br><br>
+          <img alt="facebook" src="visa.png" width="605px" height="111px" /><br><br>
+
+          <button  class="button" ><a href="https://pay.fondy.eu/api/checkout?button=%7B%22merchant_id%22%3A1396424%2C%22currency%22%3A%22USD%22%2C%22fields%22%3A%5B%5D%2C%22params%22%3A%7B%7D%2C%22amount%22%3A%22%22%7D">Пополнение банковской картой</a></button><br><br>
+      </div>
+  </div>
+<script>  
+
+
+
+
+
+  </script>  
+        <div class="footer">
+          <br>
+              <footer class="myFooter" id="myFooter">
+                 
+                  <div class="footer1">
+  
+                      <div class="footer2">
+                          <a>Мы в соц-сетях:</a><br>
+                          <a href="https://www.facebook.com/profile.php?id=100023029292803"><img src="f.png" width="50px" height="50px"></a>
+                          <a href="https://twitter.com/explore"><img src="t.png" width="50px" height="50px"></a>
+                          <a href="https://www.instagram.com/niks.gawrilenko/?hl=uk"><img src="i.png" width="50px" height="50px"></a>
+                          <a href="https://vk.com/id224301660"><img src="v.webp" width="50px" height="50px"></a>
+                      </div>
+                      
+                      <div class="footer3">
+                          <a>Контакт-центр:</a><br>
+                          <p>+380687483729</p>
+                      </div>
+                      
+  
+  
+                  </div>
+  
+              </footer>
+              <p>Использование материалов этого сайта возможно только с предварительного письменного согласия «NetСom»</p>
+                  <p >© 2020 NetСom company все права защищены</p>
+          </div>
+      </div>
+  
+
+</body>
+
+</html>
+
